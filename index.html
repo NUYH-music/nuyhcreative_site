@@ -12,7 +12,8 @@
 html,body{margin:0;background:#0d0d0c;color:#d8d4c4;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",sans-serif}
 body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 a{color:inherit;text-underline-offset:.2em}
-.w{position:relative;width:min(100vw,calc((100vh - 2.5rem) * 1.7917));aspect-ratio:1376/768;container-type:inline-size;background:#070706;user-select:none;-webkit-user-select:none;border-radius:1.2cqw}
+.w{position:relative;width:min(100vw,calc(100vh * 1.7917));aspect-ratio:1376/768;container-type:inline-size;user-select:none;-webkit-user-select:none}
+.bk{inset:.6cqw;background:#070706;border-radius:1.4cqw}
 .w>img{position:relative;z-index:2;display:block;width:100%;height:100%;pointer-events:none}
 .w>:not(img){position:absolute}
 /* knobs */
@@ -25,10 +26,12 @@ a{color:inherit;text-underline-offset:.2em}
 /* toggles / power */
 .t,.p{z-index:3;padding:0;border:0;background:none;cursor:pointer}
 .t img,.p img{width:100%;height:100%;display:block;pointer-events:none;object-fit:contain;transition:transform .15s}
-.t img{position:absolute;inset:0}
-.t .o{display:none}
-.t:not(.on) .u{display:none}
-.t:not(.on) .o{display:block}
+.t{filter:drop-shadow(0 .2cqw .3cqw rgba(0,0,0,.5))}
+.t img{position:absolute;inset:0;transition:opacity .12s ease-out}
+.t .o{opacity:0}
+.t:not(.on) .u{opacity:0}
+.t:not(.on) .o{opacity:1}
+.t:active{transform:scale(.97)}
 .p:not(.on) img{transform:perspective(160px) rotateX(14deg);filter:brightness(.8)}
 .w:not(.on) .p{animation:hint 2.2s ease-in-out infinite}
 @keyframes hint{50%{filter:drop-shadow(0 0 .8cqw rgba(125,255,74,.9))}}
@@ -37,7 +40,9 @@ a{color:inherit;text-underline-offset:.2em}
 .led.g{background:#0c2a0a}
 .led.r.lit{background:radial-gradient(#ffd9bd,#ff3a1a 55%,#a00);box-shadow:0 0 .9cqw .25cqw rgba(255,60,30,.75)}
 .led.g.lit{background:radial-gradient(#e6ffd9,#46ff2a 55%,#0a8a08);box-shadow:0 0 .9cqw .25cqw rgba(70,255,40,.75)}
-.jack{z-index:1;border-radius:50%;background:radial-gradient(circle at 50% 45%,#000 0 36%,#2b2a25 40%,#7a745a 47%,#2a281f 52%)}
+.jack{z-index:3;pointer-events:none;filter:drop-shadow(0 .25cqw .35cqw rgba(0,0,0,.5))}
+.jack img{position:absolute;inset:0;width:100%;height:100%}
+.cr{z-index:3;display:flex;align-items:center;justify-content:center;white-space:nowrap;font:500 .95cqw/1 "Arial Narrow","Helvetica Neue",Arial,sans-serif;letter-spacing:.1em;color:#1b1a17;pointer-events:none}
 /* screen */
 .scr{z-index:4;overflow:hidden;border-radius:1.6cqw;color:#7dff4a;font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Apple SD Gothic Neo","Noto Sans KR",monospace;text-shadow:0 0 .5cqw rgba(110,255,60,.75);filter:brightness(calc(.55 + var(--int,.7)*.75))}
 .scr::before{content:"";position:absolute;inset:0;background:#04100a;opacity:.95;transition:opacity .5s;z-index:5;pointer-events:none}
@@ -70,6 +75,7 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 </head>
 <body>
 <div class="w" id="w">
+<div class="bk"></div>
 <img src="assets/plate.webp" alt="" width="1376" height="768">
 <div class="k" data-k="about" role="slider" tabindex="0" aria-label="about" aria-valuemin="0" aria-valuemax="100" style="left:5.443%;top:10.430%;width:6.613%;height:11.849%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
 <div class="k" data-k="store" role="slider" tabindex="0" aria-label="store" aria-valuemin="0" aria-valuemax="100" style="left:87.972%;top:10.456%;width:6.613%;height:11.849%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
@@ -88,7 +94,8 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <i class="led r" id="l-music" style="left:54.281%;top:83.281%;width:1.090%;height:1.953%"></i>
 <button class="p" id="power" aria-label="power" aria-pressed="false" style="left:89.426%;top:85.417%;width:4.070%;height:10.938%"><img src="assets/rocker.png" alt="" draggable="false"></button>
 <i class="led g" id="l-power" style="left:90.952%;top:82.357%;width:1.090%;height:1.953%"></i>
-<div class="jack" style="left:6.119%;top:83.320%;width:4.797%;height:8.594%"></div>
+<div class="jack" style="left:2.536%;top:81.510%;width:10.683%;height:18.490%"><img src="assets/jack.png" alt="" draggable="false"></div>
+<div class="cr" style="left:85.029%;top:67.839%;width:12.791%;height:5.208%">© 2026 NUYH Creative</div>
 
 <div class="scr" id="scr" style="left:27.616%;top:10.677%;width:44.767%;height:54.427%" aria-live="polite">
 <div class="sel">SELECT<div class="sk" id="sk"></div></div>
@@ -106,21 +113,24 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <p><a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a></p>
 <p><a href="https://gotboy.nuyhcreative.com/privacy_en.html">Privacy Policy</a> / <a href="https://gotboy.nuyhcreative.com/privacy_ko.html" lang="ko">개인정보처리방침</a><br><a href="https://gotboy.nuyhcreative.com/terms_en.html">Terms of Service</a> / <a href="https://gotboy.nuyhcreative.com/terms_ko.html" lang="ko">이용약관</a></p>
 </section>
-<footer>© 2026 NUYH Creative</footer>
+
 <script>
 (()=>{
 "use strict";
 /* ===== EDIT HERE: screen contents. [text, url] = link, [[t,u],[t,u]] = several links on one line ===== */
 const PAGES={
- about:[{h:"ABOUT / STUDIO",l:["NUYH Creative is an independent studio","making games and music.","게임과 음악을 만드는 독립 스튜디오입니다."]},
-        {h:"ABOUT / MUSIC",l:["Composition and sound design."]},
-        {h:"ABOUT / VISUAL",l:["Pixel art and game visuals."]}],
- works:[{h:"WORKS / MUSIC",l:["COMING SOON"]},
+ about:[{h:"ABOUT",l:["NUYH Creative is an independent studio","making multimedia art across","music, sound, visual and games.","음악, 사운드, 비주얼, 게임을 아우르는","멀티미디어 아트 스튜디오입니다."]},
+        {h:"ABOUT / MUSIC & SOUND",l:["Composition and sound design.","작곡과 사운드 디자인."]},
+        {h:"ABOUT / VISUAL",l:["Multimedia work.","COMING SOON"]},
+        {h:"ABOUT / GAME",l:["Independent game development.","Home of GOTBOY.","독립 게임 개발."]}],
+ works:[{h:"WORKS / MUSIC & SOUND",l:["COMING SOON"]},
+        {h:"WORKS / VISUAL",l:["COMING SOON"]},
         {h:"WORKS / GAME",l:["GOTBOY","Retro pixel-art runner & boss fight game",["gotboy.nuyhcreative.com","https://gotboy.nuyhcreative.com"],
           [["Privacy Policy","https://gotboy.nuyhcreative.com/privacy_en.html"],["개인정보처리방침","https://gotboy.nuyhcreative.com/privacy_ko.html"]],
           [["Terms of Service","https://gotboy.nuyhcreative.com/terms_en.html"],["이용약관","https://gotboy.nuyhcreative.com/terms_ko.html"]]]}],
- store:[{h:"STORE / ALL",l:["COMING SOON"]},{h:"STORE / MUSIC",l:["COMING SOON"]},{h:"STORE / GAME",l:["COMING SOON"]}],
- contact:[{h:"CONTACT",l:[["contact@nuyhcreative.com","mailto:contact@nuyhcreative.com"],"INSTAGRAM  —","BANDCAMP  —"]}]
+ store:[{h:"STORE / MUSIC GOODS",l:["Official goods from NUYH Creative.","COMING SOON"]},
+        {h:"STORE / GAME GOODS",l:["GOTBOY goods.","COMING SOON"]}],
+ contact:[{h:"CONTACT",l:[["contact@nuyhcreative.com","mailto:contact@nuyhcreative.com"]]}]
 };
 const TRACKS=["assets/track01.mp3","assets/track02.mp3","assets/track03.mp3"]; // put your audio files here
 /* ================================================================ */
@@ -136,7 +146,7 @@ function show(){
   info.replaceChildren();
   if(!S.on) return;
   const rows=[];
-  if(!S.page){ rows.push(["ti","NUYH"],["su","MUSIC / SOUND / VISUAL"]); }
+  if(!S.page){ rows.push(["ti","NUYH"],["su","MUSIC / SOUND / VISUAL / GAME"]); }
   else{
     const list=PAGES[S.page], p=list[Math.min(S.sub[S.page]|0,list.length-1)];
     rows.push(["hd","▶ "+p.h]); p.l.forEach(x=>rows.push(["ln",x]));
@@ -147,7 +157,7 @@ function show(){
     else d.textContent=x;
     info.append(d);
   });
-  sk.style.transform="rotate("+(-135+135*(S.sub[S.page]|0))+"deg)";
+  sk.style.transform="rotate("+(45*(S.sub[S.page]|0))+"deg)";
 }
 function label(){ const n="TRACK 0"+(S.tr+1); trk.textContent=S.on?(S.bad&&S.music?n+" — NO SIGNAL":"▶ "+n):""; }
 function leds(){
@@ -174,7 +184,7 @@ function setMusic(v){
 }
 
 /* ---- knobs (angle in degrees, 0 = north) ---- */
-const K={}, ST={aboutp:[0,45,90],worksp:[0,45],storep:[0,45,90],track:[0,45,90]};
+const K={}, ST={aboutp:[0,45,90,135],worksp:[0,45,90],storep:[0,45],track:[0,45,90]};
 function change(id,a){
   const v=(a+135)/270, st=ST[id];
   if(id==="int"){V.int=v; wrap.style.setProperty("--int",v); return;}
