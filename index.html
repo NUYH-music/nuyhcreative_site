@@ -16,14 +16,19 @@ a{color:inherit;text-underline-offset:.2em}
 .w>img{position:relative;z-index:2;display:block;width:100%;height:100%;pointer-events:none}
 .w>:not(img){position:absolute}
 /* knobs */
-.k{z-index:3;border-radius:50%;cursor:grab;touch-action:none;outline-offset:3px;transition:transform .18s ease-out;box-shadow:0 0 0 .13cqw #8d7d4d,0 .3cqw .6cqw rgba(0,0,0,.55)}
-.k.d{transition:none;cursor:grabbing}
-.k img{width:100%;height:100%;display:block;pointer-events:none}
+.k{z-index:3;border-radius:50%;cursor:grab;touch-action:none;outline-offset:3px;box-shadow:0 .3cqw .7cqw rgba(0,0,0,.55)}
+.k.d{cursor:grabbing}
+.k img{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.k .r{transition:transform .18s ease-out}
+.k.d .r{transition:none}
 .k:focus-visible,.t:focus-visible,.p:focus-visible{outline:2px solid #7dff4a}
 /* toggles / power */
 .t,.p{z-index:3;padding:0;border:0;background:none;cursor:pointer}
 .t img,.p img{width:100%;height:100%;display:block;pointer-events:none;object-fit:contain;transition:transform .15s}
-.t:not(.on) img{transform:translateY(9%) scaleY(.9)}
+.t img{position:absolute;inset:0}
+.t .o{display:none}
+.t:not(.on) .u{display:none}
+.t:not(.on) .o{display:block}
 .p:not(.on) img{transform:perspective(160px) rotateX(14deg);filter:brightness(.8)}
 .w:not(.on) .p{animation:hint 2.2s ease-in-out infinite}
 @keyframes hint{50%{filter:drop-shadow(0 0 .8cqw rgba(125,255,74,.9))}}
@@ -43,13 +48,13 @@ a{color:inherit;text-underline-offset:.2em}
 .sel{position:absolute;left:50%;top:4%;transform:translateX(-50%);text-align:center;font-size:.95cqw;letter-spacing:.2em;opacity:.85}
 .sk{width:2.6cqw;height:2.6cqw;margin:.3cqw auto 0;border:.1cqw solid currentColor;border-radius:50%;position:relative;transition:transform .2s}
 .sk::after{content:"";position:absolute;left:50%;top:6%;width:.1cqw;height:32%;background:currentColor;transform:translateX(-50%)}
-#info{position:absolute;left:4%;right:4%;top:22%;height:44%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:.5cqw}
+#info{position:absolute;left:4%;right:4%;top:19%;height:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:.35cqw}
 #info>*{animation:ty .5s steps(20) both}
 @keyframes ty{from{clip-path:inset(0 100% 0 0);opacity:.2}to{clip-path:inset(0 0 0 0);opacity:1}}
 .ti{font-size:4.4cqw;font-weight:700;letter-spacing:.2em;padding-left:.2em}
 .su{font-size:1.25cqw;letter-spacing:.3em}
-.hd{font-size:1.5cqw;letter-spacing:.15em;margin-bottom:.6cqw}
-.ln{font-size:1.45cqw}
+.hd{font-size:1.5cqw;letter-spacing:.15em;margin-bottom:.4cqw}
+.ln{font-size:1.4cqw}
 .hz,.cl,#trk{position:absolute}
 .hz{left:0;right:0;top:70%;border-top:1px solid rgba(110,255,60,.35)}
 .cl{left:50%;top:70%;height:24%;border-left:1px dashed rgba(110,255,60,.35)}
@@ -66,20 +71,20 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <body>
 <div class="w" id="w">
 <img src="assets/plate.webp" alt="" width="1376" height="768">
-<div class="k" data-k="about" role="slider" tabindex="0" aria-label="about" aria-valuemin="0" aria-valuemax="100" style="left:5.443%;top:10.430%;width:6.613%;height:11.849%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="store" role="slider" tabindex="0" aria-label="store" aria-valuemin="0" aria-valuemax="100" style="left:87.972%;top:10.456%;width:6.613%;height:11.849%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="aboutp" role="slider" tabindex="0" aria-label="aboutp" aria-valuemin="0" aria-valuemax="100" style="left:6.512%;top:30.911%;width:4.142%;height:7.422%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="storep" role="slider" tabindex="0" aria-label="storep" aria-valuemin="0" aria-valuemax="100" style="left:89.070%;top:30.911%;width:4.142%;height:7.422%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="works" role="slider" tabindex="0" aria-label="works" aria-valuemin="0" aria-valuemax="100" style="left:5.254%;top:48.581%;width:6.831%;height:12.240%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="contact" role="slider" tabindex="0" aria-label="contact" aria-valuemin="0" aria-valuemax="100" style="left:87.958%;top:48.646%;width:6.686%;height:11.979%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="worksp" role="slider" tabindex="0" aria-label="worksp" aria-valuemin="0" aria-valuemax="100" style="left:6.555%;top:68.229%;width:4.070%;height:7.292%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="int" role="slider" tabindex="0" aria-label="int" aria-valuemin="0" aria-valuemax="100" style="left:19.731%;top:84.674%;width:4.433%;height:7.943%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="zoom" role="slider" tabindex="0" aria-label="zoom" aria-valuemin="0" aria-valuemax="100" style="left:31.969%;top:84.661%;width:4.433%;height:7.943%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="vol" role="slider" tabindex="0" aria-label="vol" aria-valuemin="0" aria-valuemax="100" style="left:64.259%;top:84.661%;width:4.433%;height:7.943%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<div class="k" data-k="track" role="slider" tabindex="0" aria-label="track" aria-valuemin="0" aria-valuemax="100" style="left:76.359%;top:84.674%;width:4.433%;height:7.943%"><img src="assets/knob.png" alt="" draggable="false"></div>
-<button class="t" id="t-wave" aria-label="wave" aria-pressed="false" style="left:43.067%;top:84.961%;width:4.070%;height:8.594%"><img src="assets/toggle.png" alt="" draggable="false"></button>
+<div class="k" data-k="about" role="slider" tabindex="0" aria-label="about" aria-valuemin="0" aria-valuemax="100" style="left:5.443%;top:10.430%;width:6.613%;height:11.849%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="store" role="slider" tabindex="0" aria-label="store" aria-valuemin="0" aria-valuemax="100" style="left:87.972%;top:10.456%;width:6.613%;height:11.849%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="aboutp" role="slider" tabindex="0" aria-label="aboutp" aria-valuemin="0" aria-valuemax="100" style="left:6.512%;top:30.911%;width:4.142%;height:7.422%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="storep" role="slider" tabindex="0" aria-label="storep" aria-valuemin="0" aria-valuemax="100" style="left:89.070%;top:30.911%;width:4.142%;height:7.422%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="works" role="slider" tabindex="0" aria-label="works" aria-valuemin="0" aria-valuemax="100" style="left:5.254%;top:48.581%;width:6.831%;height:12.240%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="contact" role="slider" tabindex="0" aria-label="contact" aria-valuemin="0" aria-valuemax="100" style="left:87.958%;top:48.646%;width:6.686%;height:11.979%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="worksp" role="slider" tabindex="0" aria-label="worksp" aria-valuemin="0" aria-valuemax="100" style="left:6.555%;top:68.229%;width:4.070%;height:7.292%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="int" role="slider" tabindex="0" aria-label="int" aria-valuemin="0" aria-valuemax="100" style="left:19.731%;top:84.674%;width:4.433%;height:7.943%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="zoom" role="slider" tabindex="0" aria-label="zoom" aria-valuemin="0" aria-valuemax="100" style="left:31.969%;top:84.661%;width:4.433%;height:7.943%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="vol" role="slider" tabindex="0" aria-label="vol" aria-valuemin="0" aria-valuemax="100" style="left:64.259%;top:84.661%;width:4.433%;height:7.943%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<div class="k" data-k="track" role="slider" tabindex="0" aria-label="track" aria-valuemin="0" aria-valuemax="100" style="left:76.359%;top:84.674%;width:4.433%;height:7.943%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
+<button class="t" id="t-wave" aria-label="wave" aria-pressed="false" style="left:42.558%;top:84.674%;width:5.087%;height:11.621%"><img class="u" src="assets/toggle-on.png" alt="" draggable="false"><img class="o" src="assets/toggle-off.png" alt="" draggable="false"></button>
 <i class="led r" id="l-wave" style="left:44.528%;top:83.281%;width:1.090%;height:1.953%"></i>
-<button class="t" id="t-music" aria-label="music" aria-pressed="false" style="left:52.805%;top:84.948%;width:4.070%;height:8.594%"><img src="assets/toggle.png" alt="" draggable="false"></button>
+<button class="t" id="t-music" aria-label="music" aria-pressed="false" style="left:52.297%;top:84.661%;width:5.087%;height:11.621%"><img class="u" src="assets/toggle-on.png" alt="" draggable="false"><img class="o" src="assets/toggle-off.png" alt="" draggable="false"></button>
 <i class="led r" id="l-music" style="left:54.281%;top:83.281%;width:1.090%;height:1.953%"></i>
 <button class="p" id="power" aria-label="power" aria-pressed="false" style="left:89.426%;top:85.417%;width:4.070%;height:10.938%"><img src="assets/rocker.png" alt="" draggable="false"></button>
 <i class="led g" id="l-power" style="left:90.952%;top:82.357%;width:1.090%;height:1.953%"></i>
@@ -99,26 +104,28 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <p>An independent studio making games and music. / 게임과 음악을 만드는 독립 스튜디오입니다.</p>
 <p><strong>GOTBOY</strong> — a retro pixel-art runner and boss-fight game inspired by Korean folklore. <a href="https://gotboy.nuyhcreative.com">gotboy.nuyhcreative.com</a></p>
 <p><a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a></p>
+<p><a href="https://gotboy.nuyhcreative.com/privacy_en.html">Privacy Policy</a> / <a href="https://gotboy.nuyhcreative.com/privacy_ko.html" lang="ko">개인정보처리방침</a><br><a href="https://gotboy.nuyhcreative.com/terms_en.html">Terms of Service</a> / <a href="https://gotboy.nuyhcreative.com/terms_ko.html" lang="ko">이용약관</a></p>
 </section>
-<footer>© 2026 NUYH Creative · <a href="https://gotboy.nuyhcreative.com/privacy_en.html">Privacy</a> / <a href="https://gotboy.nuyhcreative.com/privacy_ko.html" lang="ko">개인정보처리방침</a> · <a href="https://gotboy.nuyhcreative.com/terms_en.html">Terms</a> / <a href="https://gotboy.nuyhcreative.com/terms_ko.html" lang="ko">이용약관</a></footer>
+<footer>© 2026 NUYH Creative</footer>
 <script>
 (()=>{
 "use strict";
-/* ===== EDIT HERE: screen contents. [text, url] makes a link ===== */
+/* ===== EDIT HERE: screen contents. [text, url] = link, [[t,u],[t,u]] = several links on one line ===== */
 const PAGES={
  about:[{h:"ABOUT / STUDIO",l:["NUYH Creative is an independent studio","making games and music.","게임과 음악을 만드는 독립 스튜디오입니다."]},
         {h:"ABOUT / MUSIC",l:["Composition and sound design."]},
         {h:"ABOUT / VISUAL",l:["Pixel art and game visuals."]}],
- works:[{h:"WORKS / ALBUM",l:["COMING SOON"]},
-        {h:"WORKS / GAME",l:["GOTBOY","Retro pixel-art runner & boss fight","inspired by Korean folklore.",["gotboy.nuyhcreative.com","https://gotboy.nuyhcreative.com"]]},
-        {h:"WORKS / FILM",l:["COMING SOON"]}],
+ works:[{h:"WORKS / MUSIC",l:["COMING SOON"]},
+        {h:"WORKS / GAME",l:["GOTBOY","Retro pixel-art runner & boss fight game",["gotboy.nuyhcreative.com","https://gotboy.nuyhcreative.com"],
+          [["Privacy Policy","https://gotboy.nuyhcreative.com/privacy_en.html"],["개인정보처리방침","https://gotboy.nuyhcreative.com/privacy_ko.html"]],
+          [["Terms of Service","https://gotboy.nuyhcreative.com/terms_en.html"],["이용약관","https://gotboy.nuyhcreative.com/terms_ko.html"]]]}],
  store:[{h:"STORE / ALL",l:["COMING SOON"]},{h:"STORE / MUSIC",l:["COMING SOON"]},{h:"STORE / GAME",l:["COMING SOON"]}],
  contact:[{h:"CONTACT",l:[["contact@nuyhcreative.com","mailto:contact@nuyhcreative.com"],"INSTAGRAM  —","BANDCAMP  —"]}]
 };
 const TRACKS=["assets/track01.mp3","assets/track02.mp3","assets/track03.mp3"]; // put your audio files here
 /* ================================================================ */
 const $=s=>document.querySelector(s), clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
-const S={on:0,wave:1,music:0,page:null,sub:{about:0,works:0,store:0},tr:0,bad:0}, V={int:.7,zoom:.5,vol:.6};
+const S={on:0,wave:1,music:0,page:null,sub:{about:0,works:0,store:0},tr:0,bad:0}, V={int:.5,zoom:.5,vol:.5};
 const SEC=["about","works","store","contact"], POS={aboutp:"about",worksp:"works",storep:"store"};
 const wrap=$("#w"),info=$("#info"),trk=$("#trk"),sk=$("#sk"),cv=$("#cv"),ctx=cv.getContext("2d");
 const aud=new Audio(); aud.loop=true; aud.preload="none"; aud.volume=V.vol;
@@ -136,7 +143,7 @@ function show(){
   }
   rows.forEach(([c,x],i)=>{
     const d=document.createElement("div"); d.className=c; d.style.animationDelay=(i*.14)+"s";
-    if(Array.isArray(x)){ const a=document.createElement("a"); a.href=x[1]; a.textContent=x[0]; a.rel="noopener"; if(x[1].startsWith("http")) a.target="_blank"; d.append(a); }
+    if(Array.isArray(x)){ (Array.isArray(x[0])?x:[x]).forEach((l,j)=>{ if(j) d.append(" · "); const a=document.createElement("a"); a.href=l[1]; a.textContent=l[0]; a.rel="noopener"; if(l[1].startsWith("http")) a.target="_blank"; d.append(a); }); }
     else d.textContent=x;
     info.append(d);
   });
@@ -166,41 +173,49 @@ function setMusic(v){
   leds(); label();
 }
 
-/* ---- knobs ---- */
-const K={};
-function change(id,v){
+/* ---- knobs (angle in degrees, 0 = north) ---- */
+const K={}, ST={aboutp:[0,45,90],worksp:[0,45],storep:[0,45,90],track:[0,45,90]};
+function change(id,a){
+  const v=(a+135)/270, st=ST[id];
   if(id==="int"){V.int=v; wrap.style.setProperty("--int",v); return;}
   if(id==="zoom"){V.zoom=v; return;}
   if(id==="vol"){V.vol=v; aud.volume=v; return;}
-  if(id==="track"){S.tr=Math.round(v*2); loadTrack(); return;}
-  if(id in POS){S.sub[POS[id]]=Math.round(v*2); show(); return;}
-  if(v>.5){ S.page=id; SEC.forEach(o=>o!==id&&K[o].set(0,1)); } else if(S.page===id) S.page=null;
+  const i=st?st.indexOf(a):0;
+  if(id==="track"){S.tr=i; loadTrack(); return;}
+  if(id in POS){S.sub[POS[id]]=i; show(); return;}
+  if(a>20){ S.page=id; SEC.forEach(o=>o!==id&&K[o].set(0,1)); } else if(S.page===id) S.page=null;
   show();
 }
 document.querySelectorAll(".k").forEach(el=>{
-  const id=el.dataset.k, steps=(id in POS||id==="track")?3:0, sec=SEC.includes(id);
-  const k=K[id]={v:0,set(v,quiet){
-    v=clamp(v); if(steps) v=Math.round(v*(steps-1))/(steps-1);
-    this.v=v; el.style.transform="rotate("+(-135+270*v)+"deg)"; el.setAttribute("aria-valuenow",Math.round(v*100));
-    if(!quiet) change(id,v);
-  }};
-  let st=null;
-  el.addEventListener("pointerdown",e=>{ if(!S.on) return; el.setPointerCapture(e.pointerId); el.classList.add("d"); st={x:e.clientX,y:e.clientY,m:0}; });
+  const id=el.dataset.k, st=ST[id], sec=SEC.includes(id), rot=el.querySelector(".r");
+  const k=K[id]={a:0,
+    set(a,quiet){
+      a=clamp(a,-135,135);
+      if(st) a=st.reduce((b,s)=>Math.abs(s-a)<Math.abs(b-a)?s:b);
+      this.a=a; rot.style.transform="rotate("+a+"deg)"; el.setAttribute("aria-valuenow",Math.round((a+135)/2.7));
+      if(!quiet) change(id,a);
+    },
+    step(d,wrapAround){
+      if(!st) return this.set(this.a+d*12);
+      let i=st.indexOf(this.a)+d; i=wrapAround?(i+st.length)%st.length:clamp(i,0,st.length-1); this.set(st[i]);
+    }};
+  let p=null;
+  el.addEventListener("pointerdown",e=>{ if(!S.on) return; el.setPointerCapture(e.pointerId); el.classList.add("d"); p={x:e.clientX,y:e.clientY,m:0}; });
   el.addEventListener("pointermove",e=>{
-    if(!st) return;
-    if(Math.hypot(e.clientX-st.x,e.clientY-st.y)>5) st.m=1;
-    if(!st.m) return;
+    if(!p) return;
+    if(Math.hypot(e.clientX-p.x,e.clientY-p.y)>5) p.m=1;
+    if(!p.m) return;
     const r=el.getBoundingClientRect(), a=Math.atan2(e.clientX-(r.left+r.width/2),-(e.clientY-(r.top+r.height/2)))*180/Math.PI;
-    if(Math.abs(a)<=155) k.set((clamp(a,-135,135)+135)/270);
+    if(Math.abs(a)<=155) k.set(a);
   });
-  const end=()=>{ if(!st) return; if(!st.m&&sec) k.set(k.v>.5?0:.67); el.classList.remove("d"); st=null; };
+  const end=()=>{ if(!p) return; if(!p.m){ if(sec) k.set(k.a>20?0:45); else if(st) k.step(1,true); } el.classList.remove("d"); p=null; };
   el.addEventListener("pointerup",end); el.addEventListener("pointercancel",end);
-  el.addEventListener("wheel",e=>{ if(!S.on) return; e.preventDefault(); k.set(k.v+(e.deltaY<0?1:-1)*(steps?1/(steps-1):.05)); },{passive:false});
+  el.addEventListener("wheel",e=>{ if(!S.on) return; e.preventDefault(); k.step(e.deltaY<0?1:-1); },{passive:false});
   el.addEventListener("keydown",e=>{
     if(!S.on) return; const d={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1}[e.key]; if(!d) return;
-    e.preventDefault(); k.set(k.v+d*(steps?1/(steps-1):.08));
+    e.preventDefault(); k.step(d);
   });
-  k.set({int:V.int,zoom:V.zoom,vol:V.vol}[id]||0,1);
+  k.set(0,1);
 });
 wrap.style.setProperty("--int",V.int);
 
