@@ -2,77 +2,237 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NUYH Creative</title>
 <meta name="description" content="NUYH Creative is an independent studio making games and music. Home of GOTBOY.">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
+<link rel="preload" as="image" href="assets/plate.webp">
 <style>
-  :root {
-    --bg: #f5f4f0;
-    --text: #2a2a2a;
-    --muted: #6a6a66;
-    --accent: #2f7f69;
-    --line: #d9d7d0;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #2f2f2f;
-      --text: #ececea;
-      --muted: #a4a39e;
-      --accent: #7fc7ae;
-      --line: #494946;
-    }
-  }
-  * { box-sizing: border-box; }
-  html { background: var(--bg); }
-  body {
-    margin: 0;
-    padding: 4rem 1.5rem 3rem;
-    color: var(--text);
-    background: var(--bg);
-    font: 1.0625rem/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-  }
-  main { max-width: 36rem; margin: 0 auto; }
-  h1 { margin: 0 0 .25rem; font-size: 2.5rem; line-height: 1.15; letter-spacing: -.02em; }
-  h2 { margin: 3rem 0 .5rem; font-size: 1.25rem; }
-  p { margin: 0 0 .75rem; }
-  .tagline { color: var(--muted); }
-  .ko { color: var(--muted); font-size: .98rem; }
-  section { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: .25rem; }
-  ul { margin: 0; padding: 0; list-style: none; }
-  li { margin: 0 0 .35rem; }
-  a { color: var(--accent); text-underline-offset: .2em; }
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  footer { margin-top: 3rem; color: var(--muted); font-size: .9rem; }
+*{box-sizing:border-box}
+html,body{margin:0;background:#0d0d0c;color:#d8d4c4;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+a{color:inherit;text-underline-offset:.2em}
+.w{position:relative;width:min(100vw,calc((100vh - 2.5rem) * 1.7917));aspect-ratio:1376/768;container-type:inline-size;background:#070706;user-select:none;-webkit-user-select:none;border-radius:1.2cqw}
+.w>img{position:relative;z-index:2;display:block;width:100%;height:100%;pointer-events:none}
+.w>:not(img){position:absolute}
+/* knobs */
+.k{z-index:3;border-radius:50%;cursor:grab;touch-action:none;outline-offset:3px;transition:transform .18s ease-out;box-shadow:0 0 0 .13cqw #8d7d4d,0 .3cqw .6cqw rgba(0,0,0,.55)}
+.k.d{transition:none;cursor:grabbing}
+.k img{width:100%;height:100%;display:block;pointer-events:none}
+.k:focus-visible,.t:focus-visible,.p:focus-visible{outline:2px solid #7dff4a}
+/* toggles / power */
+.t,.p{z-index:3;padding:0;border:0;background:none;cursor:pointer}
+.t img,.p img{width:100%;height:100%;display:block;pointer-events:none;object-fit:contain;transition:transform .15s}
+.t:not(.on) img{transform:translateY(9%) scaleY(.9)}
+.p:not(.on) img{transform:perspective(160px) rotateX(14deg);filter:brightness(.8)}
+.w:not(.on) .p{animation:hint 2.2s ease-in-out infinite}
+@keyframes hint{50%{filter:drop-shadow(0 0 .8cqw rgba(125,255,74,.9))}}
+.w:not(.on) .k,.w:not(.on) .t{filter:brightness(.6)}
+.led{z-index:3;border-radius:50%;background:#2a0b08;box-shadow:inset 0 0 .3cqw #000;transition:.2s}
+.led.g{background:#0c2a0a}
+.led.r.lit{background:radial-gradient(#ffd9bd,#ff3a1a 55%,#a00);box-shadow:0 0 .9cqw .25cqw rgba(255,60,30,.75)}
+.led.g.lit{background:radial-gradient(#e6ffd9,#46ff2a 55%,#0a8a08);box-shadow:0 0 .9cqw .25cqw rgba(70,255,40,.75)}
+.jack{z-index:1;border-radius:50%;background:radial-gradient(circle at 50% 45%,#000 0 36%,#2b2a25 40%,#7a745a 47%,#2a281f 52%)}
+/* screen */
+.scr{z-index:4;overflow:hidden;border-radius:1.6cqw;color:#7dff4a;font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Apple SD Gothic Neo","Noto Sans KR",monospace;text-shadow:0 0 .5cqw rgba(110,255,60,.75);filter:brightness(calc(.55 + var(--int,.7)*.75))}
+.scr::before{content:"";position:absolute;inset:0;background:#04100a;opacity:.95;transition:opacity .5s;z-index:5;pointer-events:none}
+.scr::after{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.2) 0 1px,transparent 1px 3px)}
+.on .scr::before{opacity:0}
+.on .scr{animation:boot .8s ease-out}
+@keyframes boot{0%{filter:brightness(0);transform:scaleY(.02)}30%{filter:brightness(2.4);transform:scaleY(.04)}60%{filter:brightness(1.8);transform:scaleY(1)}100%{transform:none}}
+.sel{position:absolute;left:50%;top:4%;transform:translateX(-50%);text-align:center;font-size:.95cqw;letter-spacing:.2em;opacity:.85}
+.sk{width:2.6cqw;height:2.6cqw;margin:.3cqw auto 0;border:.1cqw solid currentColor;border-radius:50%;position:relative;transition:transform .2s}
+.sk::after{content:"";position:absolute;left:50%;top:6%;width:.1cqw;height:32%;background:currentColor;transform:translateX(-50%)}
+#info{position:absolute;left:4%;right:4%;top:22%;height:44%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:.5cqw}
+#info>*{animation:ty .5s steps(20) both}
+@keyframes ty{from{clip-path:inset(0 100% 0 0);opacity:.2}to{clip-path:inset(0 0 0 0);opacity:1}}
+.ti{font-size:4.4cqw;font-weight:700;letter-spacing:.2em;padding-left:.2em}
+.su{font-size:1.25cqw;letter-spacing:.3em}
+.hd{font-size:1.5cqw;letter-spacing:.15em;margin-bottom:.6cqw}
+.ln{font-size:1.45cqw}
+.hz,.cl,#trk{position:absolute}
+.hz{left:0;right:0;top:70%;border-top:1px solid rgba(110,255,60,.35)}
+.cl{left:50%;top:70%;height:24%;border-left:1px dashed rgba(110,255,60,.35)}
+#cv{position:absolute;left:0;top:71%;width:100%;height:22%}
+#trk{left:0;right:0;bottom:3%;text-align:center;font-size:1.2cqw;letter-spacing:.15em}
+/* plain content (mobile portrait / no-JS) + footer */
+.plain{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hint{display:none;font-size:.85rem;opacity:.7;margin:.6rem 1rem 0;text-align:center}
+footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
+@media (max-aspect-ratio:1/1){.plain{position:static;width:auto;height:auto;clip:auto;white-space:normal;margin:1rem 1.25rem;max-width:34rem}.plain h1{font-size:1.6rem;margin:.2rem 0}.hint{display:block}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<main>
-  <h1>NUYH Creative</h1>
-  <p class="tagline">An independent studio making games and music.</p>
-  <p class="ko" lang="ko">게임과 음악을 만드는 독립 스튜디오입니다.</p>
+<div class="w" id="w">
+<img src="assets/plate.webp" alt="" width="1376" height="768">
+<div class="k" data-k="about" role="slider" tabindex="0" aria-label="about" aria-valuemin="0" aria-valuemax="100" style="left:5.443%;top:10.430%;width:6.613%;height:11.849%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="store" role="slider" tabindex="0" aria-label="store" aria-valuemin="0" aria-valuemax="100" style="left:87.972%;top:10.456%;width:6.613%;height:11.849%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="aboutp" role="slider" tabindex="0" aria-label="aboutp" aria-valuemin="0" aria-valuemax="100" style="left:6.512%;top:30.911%;width:4.142%;height:7.422%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="storep" role="slider" tabindex="0" aria-label="storep" aria-valuemin="0" aria-valuemax="100" style="left:89.070%;top:30.911%;width:4.142%;height:7.422%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="works" role="slider" tabindex="0" aria-label="works" aria-valuemin="0" aria-valuemax="100" style="left:5.254%;top:48.581%;width:6.831%;height:12.240%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="contact" role="slider" tabindex="0" aria-label="contact" aria-valuemin="0" aria-valuemax="100" style="left:87.958%;top:48.646%;width:6.686%;height:11.979%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="worksp" role="slider" tabindex="0" aria-label="worksp" aria-valuemin="0" aria-valuemax="100" style="left:6.555%;top:68.229%;width:4.070%;height:7.292%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="int" role="slider" tabindex="0" aria-label="int" aria-valuemin="0" aria-valuemax="100" style="left:19.731%;top:84.674%;width:4.433%;height:7.943%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="zoom" role="slider" tabindex="0" aria-label="zoom" aria-valuemin="0" aria-valuemax="100" style="left:31.969%;top:84.661%;width:4.433%;height:7.943%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="vol" role="slider" tabindex="0" aria-label="vol" aria-valuemin="0" aria-valuemax="100" style="left:64.259%;top:84.661%;width:4.433%;height:7.943%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<div class="k" data-k="track" role="slider" tabindex="0" aria-label="track" aria-valuemin="0" aria-valuemax="100" style="left:76.359%;top:84.674%;width:4.433%;height:7.943%"><img src="assets/knob.png" alt="" draggable="false"></div>
+<button class="t" id="t-wave" aria-label="wave" aria-pressed="false" style="left:43.067%;top:84.961%;width:4.070%;height:8.594%"><img src="assets/toggle.png" alt="" draggable="false"></button>
+<i class="led r" id="l-wave" style="left:44.528%;top:83.281%;width:1.090%;height:1.953%"></i>
+<button class="t" id="t-music" aria-label="music" aria-pressed="false" style="left:52.805%;top:84.948%;width:4.070%;height:8.594%"><img src="assets/toggle.png" alt="" draggable="false"></button>
+<i class="led r" id="l-music" style="left:54.281%;top:83.281%;width:1.090%;height:1.953%"></i>
+<button class="p" id="power" aria-label="power" aria-pressed="false" style="left:89.426%;top:85.417%;width:4.070%;height:10.938%"><img src="assets/rocker.png" alt="" draggable="false"></button>
+<i class="led g" id="l-power" style="left:90.952%;top:82.357%;width:1.090%;height:1.953%"></i>
+<div class="jack" style="left:6.119%;top:83.320%;width:4.797%;height:8.594%"></div>
 
-  <section>
-    <h2>GOTBOY</h2>
-    <p>A retro pixel-art runner and boss-fight game for iOS and Android, inspired by Korean folklore.</p>
-    <p class="ko" lang="ko">한국 설화에서 영감을 받은 레트로 픽셀 아트 러너·보스전 게임입니다.</p>
-    <p><a href="https://gotboy.nuyhcreative.com">gotboy.nuyhcreative.com</a></p>
-  </section>
+<div class="scr" id="scr" style="left:27.616%;top:10.677%;width:44.767%;height:54.427%" aria-live="polite">
+<div class="sel">SELECT<div class="sk" id="sk"></div></div>
+<div id="info"></div>
+<div class="hz"></div><div class="cl"></div>
+<canvas id="cv"></canvas>
+<div id="trk">▶ TRACK 01</div>
+</div>
+</div>
+<p class="hint">Rotate your phone for the full panel.</p>
+<section class="plain">
+<h1>NUYH Creative</h1>
+<p>An independent studio making games and music. / 게임과 음악을 만드는 독립 스튜디오입니다.</p>
+<p><strong>GOTBOY</strong> — a retro pixel-art runner and boss-fight game inspired by Korean folklore. <a href="https://gotboy.nuyhcreative.com">gotboy.nuyhcreative.com</a></p>
+<p><a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a></p>
+</section>
+<footer>© 2026 NUYH Creative · <a href="https://gotboy.nuyhcreative.com/privacy_en.html">Privacy</a> / <a href="https://gotboy.nuyhcreative.com/privacy_ko.html" lang="ko">개인정보처리방침</a> · <a href="https://gotboy.nuyhcreative.com/terms_en.html">Terms</a> / <a href="https://gotboy.nuyhcreative.com/terms_ko.html" lang="ko">이용약관</a></footer>
+<script>
+(()=>{
+"use strict";
+/* ===== EDIT HERE: screen contents. [text, url] makes a link ===== */
+const PAGES={
+ about:[{h:"ABOUT / STUDIO",l:["NUYH Creative is an independent studio","making games and music.","게임과 음악을 만드는 독립 스튜디오입니다."]},
+        {h:"ABOUT / MUSIC",l:["Composition and sound design."]},
+        {h:"ABOUT / VISUAL",l:["Pixel art and game visuals."]}],
+ works:[{h:"WORKS / ALBUM",l:["COMING SOON"]},
+        {h:"WORKS / GAME",l:["GOTBOY","Retro pixel-art runner & boss fight","inspired by Korean folklore.",["gotboy.nuyhcreative.com","https://gotboy.nuyhcreative.com"]]},
+        {h:"WORKS / FILM",l:["COMING SOON"]}],
+ store:[{h:"STORE / ALL",l:["COMING SOON"]},{h:"STORE / MUSIC",l:["COMING SOON"]},{h:"STORE / GAME",l:["COMING SOON"]}],
+ contact:[{h:"CONTACT",l:[["contact@nuyhcreative.com","mailto:contact@nuyhcreative.com"],"INSTAGRAM  —","BANDCAMP  —"]}]
+};
+const TRACKS=["assets/track01.mp3","assets/track02.mp3","assets/track03.mp3"]; // put your audio files here
+/* ================================================================ */
+const $=s=>document.querySelector(s), clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const S={on:0,wave:1,music:0,page:null,sub:{about:0,works:0,store:0},tr:0,bad:0}, V={int:.7,zoom:.5,vol:.6};
+const SEC=["about","works","store","contact"], POS={aboutp:"about",worksp:"works",storep:"store"};
+const wrap=$("#w"),info=$("#info"),trk=$("#trk"),sk=$("#sk"),cv=$("#cv"),ctx=cv.getContext("2d");
+const aud=new Audio(); aud.loop=true; aud.preload="none"; aud.volume=V.vol;
+let AC,an,buf;
 
-  <section>
-    <h2>Legal</h2>
-    <ul>
-      <li><a href="https://gotboy.nuyhcreative.com/privacy_en.html">Privacy Policy</a> / <a href="https://gotboy.nuyhcreative.com/privacy_ko.html" lang="ko">개인정보처리방침</a></li>
-      <li><a href="https://gotboy.nuyhcreative.com/terms_en.html">Terms of Service</a> / <a href="https://gotboy.nuyhcreative.com/terms_ko.html" lang="ko">이용약관</a></li>
-    </ul>
-  </section>
+/* ---- screen text ---- */
+function show(){
+  info.replaceChildren();
+  if(!S.on) return;
+  const rows=[];
+  if(!S.page){ rows.push(["ti","NUYH"],["su","MUSIC / SOUND / VISUAL"]); }
+  else{
+    const list=PAGES[S.page], p=list[Math.min(S.sub[S.page]|0,list.length-1)];
+    rows.push(["hd","▶ "+p.h]); p.l.forEach(x=>rows.push(["ln",x]));
+  }
+  rows.forEach(([c,x],i)=>{
+    const d=document.createElement("div"); d.className=c; d.style.animationDelay=(i*.14)+"s";
+    if(Array.isArray(x)){ const a=document.createElement("a"); a.href=x[1]; a.textContent=x[0]; a.rel="noopener"; if(x[1].startsWith("http")) a.target="_blank"; d.append(a); }
+    else d.textContent=x;
+    info.append(d);
+  });
+  sk.style.transform="rotate("+(-135+135*(S.sub[S.page]|0))+"deg)";
+}
+function label(){ const n="TRACK 0"+(S.tr+1); trk.textContent=S.on?(S.bad&&S.music?n+" — NO SIGNAL":"▶ "+n):""; }
+function leds(){
+  const on=S.on;
+  $("#l-power").classList.toggle("lit",!!on);
+  $("#l-wave").classList.toggle("lit",!!(on&&S.wave));
+  $("#l-music").classList.toggle("lit",!!(on&&S.music));
+}
 
-  <section>
-    <h2>Contact</h2>
-    <p><a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a></p>
-  </section>
+/* ---- audio ---- */
+function loadTrack(){
+  S.bad=0; aud.src=TRACKS[S.tr]; label();
+  if(S.on&&S.music) aud.play().catch(()=>{S.bad=1;label();});
+}
+aud.addEventListener("error",()=>{S.bad=1;label();});
+function setMusic(v){
+  S.music=v?1:0; $("#t-music").classList.toggle("on",!!S.music); $("#t-music").setAttribute("aria-pressed",!!S.music);
+  if(S.music&&S.on){
+    if(!aud.src) aud.src=TRACKS[S.tr];
+    try{ if(!AC){ AC=new (window.AudioContext||window.webkitAudioContext)(); const s=AC.createMediaElementSource(aud); an=AC.createAnalyser(); an.fftSize=1024; s.connect(an); an.connect(AC.destination); buf=new Uint8Array(an.fftSize);} if(AC.state==="suspended") AC.resume(); }catch(e){ an=null; }
+    aud.play().catch(()=>{S.bad=1;label();});
+  } else aud.pause();
+  leds(); label();
+}
 
-  <footer>© 2026 NUYH Creative</footer>
-</main>
+/* ---- knobs ---- */
+const K={};
+function change(id,v){
+  if(id==="int"){V.int=v; wrap.style.setProperty("--int",v); return;}
+  if(id==="zoom"){V.zoom=v; return;}
+  if(id==="vol"){V.vol=v; aud.volume=v; return;}
+  if(id==="track"){S.tr=Math.round(v*2); loadTrack(); return;}
+  if(id in POS){S.sub[POS[id]]=Math.round(v*2); show(); return;}
+  if(v>.5){ S.page=id; SEC.forEach(o=>o!==id&&K[o].set(0,1)); } else if(S.page===id) S.page=null;
+  show();
+}
+document.querySelectorAll(".k").forEach(el=>{
+  const id=el.dataset.k, steps=(id in POS||id==="track")?3:0, sec=SEC.includes(id);
+  const k=K[id]={v:0,set(v,quiet){
+    v=clamp(v); if(steps) v=Math.round(v*(steps-1))/(steps-1);
+    this.v=v; el.style.transform="rotate("+(-135+270*v)+"deg)"; el.setAttribute("aria-valuenow",Math.round(v*100));
+    if(!quiet) change(id,v);
+  }};
+  let st=null;
+  el.addEventListener("pointerdown",e=>{ if(!S.on) return; el.setPointerCapture(e.pointerId); el.classList.add("d"); st={x:e.clientX,y:e.clientY,m:0}; });
+  el.addEventListener("pointermove",e=>{
+    if(!st) return;
+    if(Math.hypot(e.clientX-st.x,e.clientY-st.y)>5) st.m=1;
+    if(!st.m) return;
+    const r=el.getBoundingClientRect(), a=Math.atan2(e.clientX-(r.left+r.width/2),-(e.clientY-(r.top+r.height/2)))*180/Math.PI;
+    if(Math.abs(a)<=155) k.set((clamp(a,-135,135)+135)/270);
+  });
+  const end=()=>{ if(!st) return; if(!st.m&&sec) k.set(k.v>.5?0:.67); el.classList.remove("d"); st=null; };
+  el.addEventListener("pointerup",end); el.addEventListener("pointercancel",end);
+  el.addEventListener("wheel",e=>{ if(!S.on) return; e.preventDefault(); k.set(k.v+(e.deltaY<0?1:-1)*(steps?1/(steps-1):.05)); },{passive:false});
+  el.addEventListener("keydown",e=>{
+    if(!S.on) return; const d={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1}[e.key]; if(!d) return;
+    e.preventDefault(); k.set(k.v+d*(steps?1/(steps-1):.08));
+  });
+  k.set({int:V.int,zoom:V.zoom,vol:V.vol}[id]||0,1);
+});
+wrap.style.setProperty("--int",V.int);
+
+/* ---- toggles / power ---- */
+$("#t-wave").classList.add("on"); $("#t-wave").setAttribute("aria-pressed","true");
+$("#t-wave").onclick=()=>{ if(!S.on) return; S.wave^=1; $("#t-wave").classList.toggle("on",!!S.wave); $("#t-wave").setAttribute("aria-pressed",!!S.wave); leds(); };
+$("#t-music").onclick=()=>{ if(S.on) setMusic(!S.music); };
+$("#power").onclick=()=>{
+  S.on^=1; wrap.classList.toggle("on",!!S.on);
+  const p=$("#power"); p.classList.toggle("on",!!S.on); p.setAttribute("aria-pressed",!!S.on);
+  if(!S.on){ aud.pause(); ctx.clearRect(0,0,cv.width,cv.height); }
+  else if(S.music) setMusic(1);
+  leds(); show(); label();
+};
+
+/* ---- waveform ---- */
+function fit(){ const d=Math.min(devicePixelRatio||1,2); cv.width=cv.clientWidth*d; cv.height=cv.clientHeight*d; }
+new ResizeObserver(fit).observe(cv); fit();
+const gen=(x,t)=>{ let e=0; for(let k=0;k<4;k++){ const c=((k*.27+t*.03+.1)%1.2)-.1; e+=Math.exp(-((x-c)**2)/.004); } return Math.sin(x*140+t*3)*(.12+e)*Math.sin(x*37-t)*.9; };
+function frame(ms){
+  requestAnimationFrame(frame);
+  if(document.hidden||!S.on||!S.wave){ if(cv.dataset.c!=="1"){ctx.clearRect(0,0,cv.width,cv.height); cv.dataset.c="1";} return; }
+  cv.dataset.c="0";
+  const w=cv.width,h=cv.height,mid=h/2,amp=(.35+V.zoom*1.3)*h*.42,t=ms/1000,n=Math.min(w,500);
+  const live=an&&S.music&&!aud.paused&&!S.bad; if(live) an.getByteTimeDomainData(buf);
+  ctx.clearRect(0,0,w,h); ctx.beginPath();
+  for(let i=0;i<=n;i++){ const x=i/n, y=live?(buf[(x*(buf.length-1))|0]-128)/128:gen(x,t); ctx[i?"lineTo":"moveTo"](x*w,mid+y*amp); }
+  ctx.lineWidth=Math.max(1.5,w/700); ctx.strokeStyle="#8dff5a"; ctx.shadowColor="#5cff2a"; ctx.shadowBlur=w/120; ctx.stroke();
+}
+requestAnimationFrame(frame);
+label(); leds();
+})();
+</script>
 </body>
 </html>
