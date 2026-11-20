@@ -158,7 +158,7 @@ document.querySelectorAll(".t").forEach(b=>b.innerHTML=TG);
   document.getElementById("scr").insertAdjacentHTML("afterbegin",`<svg class="gr" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><g stroke="#04100a" fill="none"><path d="${d}" stroke-width="1.6"/><path d="${t}" stroke-width="1.4"/><path d="${o}" stroke-width="1.6" stroke-linecap="round"/></g></svg>`);
 })();
 const $=s=>document.querySelector(s), clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
-const S={on:0,wave:1,music:0,page:null,sub:{about:0,works:0,store:0},tr:0,bad:0}, V={int:.5,zoom:.5,vol:.5};
+const S={on:0,wave:1,music:1,page:null,sub:{about:0,works:0,store:0},tr:0,bad:0}, V={int:.5,zoom:.5,vol:.5};
 const SEC=["about","works","store","contact"], POS={aboutp:"about",worksp:"works",storep:"store"};
 const wrap=$("#w"),info=$("#info"),trk=$("#trk"),sk=$("#sk"),cv=$("#cv"),ctx=cv.getContext("2d");
 const aud=new Audio(); aud.loop=true; aud.preload="none"; aud.volume=V.vol;
@@ -255,6 +255,7 @@ wrap.style.setProperty("--int",V.int);
 
 /* ---- toggles / power ---- */
 $("#t-wave").classList.add("on"); $("#t-wave").setAttribute("aria-pressed","true");
+$("#t-music").classList.add("on"); $("#t-music").setAttribute("aria-pressed","true"); // default: WAVE and MUSIC both ON
 $("#t-wave").onclick=()=>{ if(!S.on) return; S.wave^=1; $("#t-wave").classList.toggle("on",!!S.wave); $("#t-wave").setAttribute("aria-pressed",!!S.wave); leds(); };
 $("#t-music").onclick=()=>{ if(S.on) setMusic(!S.music); };
 $("#power").onclick=()=>{
@@ -265,7 +266,7 @@ $("#power").onclick=()=>{
     ["int","zoom","vol","track"].forEach(o=>K[o].set(0,1)); // INTENSITY/ZOOM/VOLUME/TRACK back to center
     V.int=V.zoom=V.vol=.5; wrap.style.setProperty("--int",.5); aud.volume=.5;
     if(S.tr){ S.tr=0; aud.src=TRACKS[0]; }
-    setMusic(0); S.wave=1; $("#t-wave").classList.add("on"); $("#t-wave").setAttribute("aria-pressed","true"); // MUSIC off, WAVE on (initial)
+    setMusic(1); S.wave=1; $("#t-wave").classList.add("on"); $("#t-wave").setAttribute("aria-pressed","true"); // WAVE and MUSIC both ON (default)
   } // power off = reset everything
   else if(S.music) setMusic(1);
   leds(); show(); label();
