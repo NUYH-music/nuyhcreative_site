@@ -166,7 +166,7 @@ let AC,an,buf;
 
 /* ---- screen text ---- */
 function show(){
-  info.replaceChildren(); $("#sel-t").textContent=S.page?"SELECT POSITION":"SELECT";
+  info.replaceChildren(); $("#sel-t").textContent=Object.values(POS).includes(S.page)?"SELECT POSITION":"SELECT"; // CONTACT has no position knob
   if(!S.on) return;
   const rows=[];
   if(!S.page){ rows.push(["ti","NUYH"],["su","MUSIC / SOUND / VISUAL / GAME"]); }
@@ -260,7 +260,8 @@ $("#t-music").onclick=()=>{ if(S.on) setMusic(!S.music); };
 $("#power").onclick=()=>{
   S.on^=1; wrap.classList.toggle("on",!!S.on);
   const p=$("#power"); p.classList.toggle("on",!!S.on); p.setAttribute("aria-pressed",!!S.on);
-  if(!S.on){ aud.pause(); ctx.clearRect(0,0,cv.width,cv.height); }
+  if(!S.on){ aud.pause(); ctx.clearRect(0,0,cv.width,cv.height);
+    S.page=null; SEC.forEach(o=>{ K[o].set(0,1); S.sub[o]=0; if(K[o+"p"]) K[o+"p"].set(0,1); }); } // power off = reset section/position knobs
   else if(S.music) setMusic(1);
   leds(); show(); label();
 };
