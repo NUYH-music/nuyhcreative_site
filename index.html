@@ -125,7 +125,7 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <h1>NUYH Creative</h1>
 <p>An independent studio making games and music. / 게임과 음악을 만드는 독립 스튜디오입니다.</p>
 <p><strong>GOTBOY</strong> — a retro pixel-art runner and boss-fight game inspired by Korean folklore. <a href="https://gotboy.nuyhcreative.com">gotboy.nuyhcreative.com</a></p>
-<p><a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a></p>
+<p>MUSIC - <a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a><br>GAME - <a href="mailto:support-gotboy@nuyhcreative.com">support-gotboy@nuyhcreative.com</a></p>
 </section>
 
 <script>
@@ -144,7 +144,7 @@ const PAGES={
  store:[{h:"STORE",l:["Official goods from NUYH Creative:","music goods and game goods.","음원 굿즈와 게임 굿즈를 소개합니다."]},
         {h:"STORE",s:"MUSIC GOODS",l:["COMING SOON"]},
         {h:"STORE",s:"GAME GOODS",l:["GOTBOY goods.","COMING SOON"]}],
- contact:[{h:"CONTACT",l:[["contact@nuyhcreative.com","mailto:contact@nuyhcreative.com"]]}]
+ contact:[{h:"CONTACT",l:[{p:"MUSIC - ",a:["contact@nuyhcreative.com","mailto:contact@nuyhcreative.com"]},{p:"GAME - ",a:["support-gotboy@nuyhcreative.com","mailto:support-gotboy@nuyhcreative.com"]}]}]
 };
 /* ===== EDIT HERE: tracks. f = file in assets/, n = name shown on screen. Add or remove lines freely. ===== */
 const TRACKS=[
@@ -183,6 +183,7 @@ function show(){
   rows.forEach(([c,x],i)=>{
     const d=document.createElement("div"); d.className=c; d.style.animationDelay=(i*.14)+"s";
     if(Array.isArray(x)){ (Array.isArray(x[0])?x:[x]).forEach((l,j)=>{ if(j) d.append(" · "); const a=document.createElement("a"); a.href=l[1]; a.textContent=l[0]; a.rel="noopener"; if(l[1].startsWith("http")) a.target="_blank"; d.append(a); }); }
+    else if(x&&x.p){ d.append(x.p); const a=document.createElement("a"); a.href=x.a[1]; a.textContent=x.a[0]; d.append(a); } // label + link
     else d.textContent=x;
     info.append(d);
   });
