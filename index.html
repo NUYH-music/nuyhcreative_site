@@ -261,7 +261,12 @@ $("#power").onclick=()=>{
   S.on^=1; wrap.classList.toggle("on",!!S.on);
   const p=$("#power"); p.classList.toggle("on",!!S.on); p.setAttribute("aria-pressed",!!S.on);
   if(!S.on){ aud.pause(); ctx.clearRect(0,0,cv.width,cv.height);
-    S.page=null; SEC.forEach(o=>{ K[o].set(0,1); S.sub[o]=0; if(K[o+"p"]) K[o+"p"].set(0,1); }); } // power off = reset section/position knobs
+    S.page=null; SEC.forEach(o=>{ K[o].set(0,1); S.sub[o]=0; if(K[o+"p"]) K[o+"p"].set(0,1); });
+    ["int","zoom","vol","track"].forEach(o=>K[o].set(0,1)); // INTENSITY/ZOOM/VOLUME/TRACK back to center
+    V.int=V.zoom=V.vol=.5; wrap.style.setProperty("--int",.5); aud.volume=.5;
+    if(S.tr){ S.tr=0; aud.src=TRACKS[0]; }
+    setMusic(0); S.wave=1; $("#t-wave").classList.add("on"); $("#t-wave").setAttribute("aria-pressed","true"); // MUSIC off, WAVE on (initial)
+  } // power off = reset everything
   else if(S.music) setMusic(1);
   leds(); show(); label();
 };
