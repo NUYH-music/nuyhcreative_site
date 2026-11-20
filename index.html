@@ -64,6 +64,7 @@ a{color:inherit;text-underline-offset:.2em}
 .ti{font-size:5cqw;font-weight:700;letter-spacing:.2em;padding-left:.2em}
 .su{font-size:1.4cqw;letter-spacing:.3em}
 .hd{font-size:1.65cqw;letter-spacing:.15em;margin-bottom:.4cqw}
+.sb{font-size:1.5cqw;letter-spacing:.15em;margin-bottom:.4cqw}
 .ln{font-size:1.5cqw}
 .hz,.cl,#trk{position:absolute}
 .hz{left:0;right:0;top:75%;border-top:1px solid rgba(110,255,60,.35)}
@@ -110,7 +111,7 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <div class="jack" style="left:2.536%;top:81.510%;width:10.683%;height:18.490%"><img src="assets/jack.png" alt="" draggable="false"></div>
 <div class="cr" style="left:85.029%;top:67.839%;width:12.791%;height:5.208%">NUYH CREATIVE</div>
 
-<i class="sc" style="left:20.834%;top:14.021%;--r:20deg"></i><i class="sc" style="left:77.662%;top:14.021%;--r:-35deg"></i><i class="sc" style="left:20.834%;top:64.802%;--r:70deg"></i><i class="sc" style="left:77.662%;top:64.802%;--r:10deg"></i>
+<i class="sc" style="left:20.834%;top:11.677%;--r:20deg"></i><i class="sc" style="left:77.662%;top:11.677%;--r:-35deg"></i><i class="sc" style="left:20.834%;top:63.500%;--r:70deg"></i><i class="sc" style="left:77.662%;top:63.500%;--r:10deg"></i>
 <div class="scr" id="scr" style="left:22.965%;top:8.594%;width:54.070%;height:60.677%" aria-live="polite">
 <div class="sel"><span id="sel-t">SELECT</span><div class="sk" id="sk"></div></div>
 <div id="info"></div>
@@ -125,7 +126,6 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <p>An independent studio making games and music. / 게임과 음악을 만드는 독립 스튜디오입니다.</p>
 <p><strong>GOTBOY</strong> — a retro pixel-art runner and boss-fight game inspired by Korean folklore. <a href="https://gotboy.nuyhcreative.com">gotboy.nuyhcreative.com</a></p>
 <p><a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a></p>
-<p><a href="https://gotboy.nuyhcreative.com/privacy_en.html">Privacy Policy</a> / <a href="https://gotboy.nuyhcreative.com/privacy_ko.html" lang="ko">개인정보처리방침</a><br><a href="https://gotboy.nuyhcreative.com/terms_en.html">Terms of Service</a> / <a href="https://gotboy.nuyhcreative.com/terms_ko.html" lang="ko">이용약관</a></p>
 </section>
 
 <script>
@@ -134,16 +134,16 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 /* ===== EDIT HERE: screen contents. [text, url] = link, [[t,u],[t,u]] = several links on one line ===== */
 const PAGES={
  about:[{h:"ABOUT",l:["NUYH Creative is an independent studio","making multimedia art across","music, sound, visual and games.","음악, 사운드, 비주얼, 게임을 아우르는","멀티미디어 아트 스튜디오입니다."]},
-        {h:"ABOUT / MUSIC & SOUND",l:["Composition and sound design.","작곡과 사운드 디자인."]},
-        {h:"ABOUT / VISUAL",l:["Multimedia work.","COMING SOON"]},
-        {h:"ABOUT / GAME",l:["Independent game development.","Home of GOTBOY.","독립 게임 개발."]}],
- works:[{h:"WORKS / MUSIC & SOUND",l:["COMING SOON"]},
-        {h:"WORKS / VISUAL",l:["COMING SOON"]},
-        {h:"WORKS / GAME",l:["GOTBOY","Retro pixel-art runner & boss fight game",["gotboy.nuyhcreative.com","https://gotboy.nuyhcreative.com"],
-          [["Privacy Policy","https://gotboy.nuyhcreative.com/privacy_en.html"],["개인정보처리방침","https://gotboy.nuyhcreative.com/privacy_ko.html"]],
-          [["Terms of Service","https://gotboy.nuyhcreative.com/terms_en.html"],["이용약관","https://gotboy.nuyhcreative.com/terms_ko.html"]]]}],
- store:[{h:"STORE / MUSIC GOODS",l:["Official goods from NUYH Creative.","COMING SOON"]},
-        {h:"STORE / GAME GOODS",l:["GOTBOY goods.","COMING SOON"]}],
+        {h:"ABOUT",s:"MUSIC & SOUND",l:["Composition and sound design.","작곡과 사운드 디자인."]},
+        {h:"ABOUT",s:"VISUAL",l:["Multimedia work.","COMING SOON"]},
+        {h:"ABOUT",s:"GAME",l:["Independent game development.","Home of GOTBOY.","독립 게임 개발."]}],
+ works:[{h:"WORKS",l:["Works by NUYH Creative","in music, visual and games.","음악, 비주얼, 게임 작품을 소개합니다."]},
+        {h:"WORKS",s:"MUSIC & SOUND",l:["COMING SOON"]},
+        {h:"WORKS",s:"VISUAL",l:["COMING SOON"]},
+        {h:"WORKS",s:"GAME",l:["GOTBOY","Retro pixel-art runner & boss fight game",["gotboy.nuyhcreative.com","https://gotboy.nuyhcreative.com"]]}],
+ store:[{h:"STORE",l:["Official goods from NUYH Creative:","music goods and game goods.","음원 굿즈와 게임 굿즈를 소개합니다."]},
+        {h:"STORE",s:"MUSIC GOODS",l:["COMING SOON"]},
+        {h:"STORE",s:"GAME GOODS",l:["GOTBOY goods.","COMING SOON"]}],
  contact:[{h:"CONTACT",l:[["contact@nuyhcreative.com","mailto:contact@nuyhcreative.com"]]}]
 };
 const TRACKS=["assets/track01.mp3","assets/track02.mp3","assets/track03.mp3"]; // put your audio files here
@@ -172,7 +172,7 @@ function show(){
   if(!S.page){ rows.push(["ti","NUYH"],["su","MUSIC / SOUND / VISUAL / GAME"]); }
   else{
     const list=PAGES[S.page], p=list[Math.min(S.sub[S.page]|0,list.length-1)];
-    rows.push(["hd","▶ "+p.h]); p.l.forEach(x=>rows.push(["ln",x]));
+    rows.push(["hd","▶ "+p.h]); if(p.s) rows.push(["sb",p.s]); p.l.forEach(x=>rows.push(["ln",x]));
   }
   rows.forEach(([c,x],i)=>{
     const d=document.createElement("div"); d.className=c; d.style.animationDelay=(i*.14)+"s";
@@ -207,7 +207,7 @@ function setMusic(v){
 }
 
 /* ---- knobs (angle in degrees, 0 = north) ---- */
-const K={}, ST={aboutp:[0,45,90,135],worksp:[0,45,90],storep:[0,45],track:[0,45,90]};
+const K={}, ST={aboutp:[0,45,90,135],worksp:[0,45,90,135],storep:[0,45,90],track:[0,45,90]};
 function change(id,a){
   const v=(a+135)/270, st=ST[id];
   if(id==="int"){V.int=v; wrap.style.setProperty("--int",v); return;}
@@ -215,8 +215,9 @@ function change(id,a){
   if(id==="vol"){V.vol=v; aud.volume=v; return;}
   const i=st?st.indexOf(a):0;
   if(id==="track"){S.tr=i; loadTrack(); return;}
-  if(id in POS){S.sub[POS[id]]=i; show(); return;}
-  if(a>20){ S.page=id; SEC.forEach(o=>o!==id&&K[o].set(0,1)); } else if(S.page===id) S.page=null;
+  const reset=o=>{ S.sub[o]=0; if(K[o+"p"]) K[o+"p"].set(0,1); }; // position knob back to 0
+  if(id in POS){ if(S.page!==POS[id]){ K[id].set(0,1); return; } S.sub[POS[id]]=i; show(); return; } // only the active section's position knob works
+  if(a>20){ SEC.forEach(o=>{ if(o!==id){ K[o].set(0,1); reset(o); } }); S.page=id; } else if(S.page===id){ S.page=null; reset(id); }
   show();
 }
 document.querySelectorAll(".k").forEach(el=>{
