@@ -24,18 +24,20 @@ a{color:inherit;text-underline-offset:.2em}
 .k.d .r{transition:none}
 .k:focus-visible,.t:focus-visible,.p:focus-visible{outline:2px solid #7dff4a}
 /* toggles / power */
-.t,.p{z-index:3;padding:0;border:0;background:none;cursor:pointer}
-.t img,.p img{width:100%;height:100%;display:block;pointer-events:none;object-fit:contain;transition:transform .15s}
+.t,.p{z-index:3;padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .t{filter:drop-shadow(0 .2cqw .3cqw rgba(0,0,0,.5))}
-.t img{position:absolute;inset:0;transition:opacity .12s ease-out}
-.t .o{opacity:0}
-.t:not(.on) .u{opacity:0}
-.t:not(.on) .o{opacity:1}
-.t:active{transform:scale(.97)}
-.p:not(.on) img{transform:perspective(160px) rotateX(14deg);filter:brightness(.8)}
+.t svg{display:block;width:100%;height:100%;pointer-events:none}
+.lv{transform-box:view-box;transform-origin:50px 52px;transition:transform .16s cubic-bezier(.3,1.3,.5,1)}
+.t:not(.on) .lv{transform:scaleY(-1)} /* lever up = ON, down = OFF */
+/* power: housing is fixed, only the rocker face tilts */
+.p{perspective:140px;border-radius:.9cqw;padding:.55cqw;background:linear-gradient(150deg,#2e2e2e,#090909 60%);box-shadow:inset 0 0 0 .12cqw #3a3a3a,0 .25cqw .5cqw rgba(0,0,0,.6)}
+.pf{display:flex;flex-direction:column;justify-content:space-between;align-items:center;width:100%;height:100%;padding:.7cqw 0;border-radius:.45cqw;color:#e6e6e6;font:600 1.5cqw/1 Arial,Helvetica,sans-serif;pointer-events:none;transition:transform .14s ease-out,background .14s;transform:rotateX(-13deg);background:linear-gradient(180deg,#2c2c2c,#171717 50%,#0a0a0a)}
+.p.on .pf{transform:rotateX(13deg);background:linear-gradient(180deg,#0a0a0a,#171717 50%,#2c2c2c)}
+.pf b{font-weight:600}
 .w:not(.on) .p{animation:hint 2.2s ease-in-out infinite}
 @keyframes hint{50%{filter:drop-shadow(0 0 .8cqw rgba(125,255,74,.9))}}
-.w:not(.on) .k,.w:not(.on) .t{filter:brightness(.6)}
+.w:not(.on) .k{filter:brightness(.6)}
+.w:not(.on) .t{filter:drop-shadow(0 .2cqw .3cqw rgba(0,0,0,.5)) brightness(.6)}
 .led{z-index:3;border-radius:50%;background:#2a0b08;box-shadow:inset 0 0 .3cqw #000;transition:.2s}
 .led.g{background:#0c2a0a}
 .led.r.lit{background:radial-gradient(#ffd9bd,#ff3a1a 55%,#a00);box-shadow:0 0 .9cqw .25cqw rgba(255,60,30,.75)}
@@ -44,27 +46,30 @@ a{color:inherit;text-underline-offset:.2em}
 .jack img{position:absolute;inset:0;width:100%;height:100%}
 .cr{z-index:3;display:flex;align-items:center;justify-content:center;white-space:nowrap;font:500 .95cqw/1 "Arial Narrow","Helvetica Neue",Arial,sans-serif;letter-spacing:.1em;color:#1b1a17;pointer-events:none}
 /* screen */
-.scr{z-index:4;overflow:hidden;border-radius:1.6cqw;color:#7dff4a;font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Apple SD Gothic Neo","Noto Sans KR",monospace;text-shadow:0 0 .5cqw rgba(110,255,60,.75);filter:brightness(calc(.55 + var(--int,.7)*.75))}
+.scr{z-index:4;overflow:hidden;border-radius:1.6cqw;background:radial-gradient(ellipse at 50% 45%,#2b3a2c,#243126 70%,#1d281f);box-shadow:inset 0 0 2.4cqw rgba(0,0,0,.65),0 0 0 .15cqw #020403;color:#7dff4a;font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Apple SD Gothic Neo","Noto Sans KR",monospace;text-shadow:0 0 .5cqw rgba(110,255,60,.75);filter:brightness(calc(.55 + var(--int,.7)*.75))}.gr{position:absolute;inset:0;width:100%;height:100%;display:block}
+.sc{z-index:5;width:1.5cqw;height:1.5cqw;border-radius:50%;background:radial-gradient(circle at 35% 30%,#bdbaae,#74716a 55%,#3a3934);box-shadow:0 .1cqw .25cqw rgba(0,0,0,.7),inset 0 0 0 .08cqw rgba(0,0,0,.4);pointer-events:none}
+.sc::before,.sc::after{content:"";position:absolute;left:50%;top:50%;background:#1b1a17;border-radius:.1cqw;transform:translate(-50%,-50%) rotate(var(--r,0deg))}
+.sc::before{width:64%;height:15%}.sc::after{width:15%;height:64%}
 .scr::before{content:"";position:absolute;inset:0;background:#04100a;opacity:.95;transition:opacity .5s;z-index:5;pointer-events:none}
 .scr::after{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.2) 0 1px,transparent 1px 3px)}
 .on .scr::before{opacity:0}
 .on .scr{animation:boot .8s ease-out}
 @keyframes boot{0%{filter:brightness(0);transform:scaleY(.02)}30%{filter:brightness(2.4);transform:scaleY(.04)}60%{filter:brightness(1.8);transform:scaleY(1)}100%{transform:none}}
-.sel{position:absolute;left:50%;top:4%;transform:translateX(-50%);text-align:center;font-size:.95cqw;letter-spacing:.2em;opacity:.85}
+.sel{position:absolute;left:50%;top:4%;white-space:nowrap;transform:translateX(-50%);text-align:center;font-size:.95cqw;letter-spacing:.2em;opacity:.85}
 .sk{width:2.6cqw;height:2.6cqw;margin:.3cqw auto 0;border:.1cqw solid currentColor;border-radius:50%;position:relative;transition:transform .2s}
 .sk::after{content:"";position:absolute;left:50%;top:6%;width:.1cqw;height:32%;background:currentColor;transform:translateX(-50%)}
 #info{position:absolute;left:4%;right:4%;top:19%;height:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:.35cqw}
 #info>*{animation:ty .5s steps(20) both}
 @keyframes ty{from{clip-path:inset(0 100% 0 0);opacity:.2}to{clip-path:inset(0 0 0 0);opacity:1}}
-.ti{font-size:4.4cqw;font-weight:700;letter-spacing:.2em;padding-left:.2em}
-.su{font-size:1.25cqw;letter-spacing:.3em}
-.hd{font-size:1.5cqw;letter-spacing:.15em;margin-bottom:.4cqw}
-.ln{font-size:1.4cqw}
+.ti{font-size:5cqw;font-weight:700;letter-spacing:.2em;padding-left:.2em}
+.su{font-size:1.4cqw;letter-spacing:.3em}
+.hd{font-size:1.65cqw;letter-spacing:.15em;margin-bottom:.4cqw}
+.ln{font-size:1.5cqw}
 .hz,.cl,#trk{position:absolute}
-.hz{left:0;right:0;top:70%;border-top:1px solid rgba(110,255,60,.35)}
-.cl{left:50%;top:70%;height:24%;border-left:1px dashed rgba(110,255,60,.35)}
-#cv{position:absolute;left:0;top:71%;width:100%;height:22%}
-#trk{left:0;right:0;bottom:3%;text-align:center;font-size:1.2cqw;letter-spacing:.15em}
+.hz{left:0;right:0;top:75%;border-top:1px solid rgba(110,255,60,.35)}
+.cl{left:50%;top:75%;height:22%;border-left:1px dashed rgba(110,255,60,.35)}
+#cv{position:absolute;left:0;top:76%;width:100%;height:18%}
+#trk{left:0;right:0;bottom:2.5%;text-align:center;font-size:1.2cqw;letter-spacing:.15em}
 /* plain content (mobile portrait / no-JS) + footer */
 .plain{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .hint{display:none;font-size:.85rem;opacity:.7;margin:.6rem 1rem 0;text-align:center}
@@ -74,6 +79,14 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="gNut" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6e3d8"/><stop offset=".45" stop-color="#aaa79c"/><stop offset="1" stop-color="#65635b"/></linearGradient>
+<radialGradient id="gRing" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#d2cfc3"/><stop offset=".6" stop-color="#8d8a80"/><stop offset="1" stop-color="#55534b"/></radialGradient>
+<radialGradient id="gWell" cx=".5" cy=".62" r=".6"><stop offset="0" stop-color="#4b4943"/><stop offset="1" stop-color="#171614"/></radialGradient>
+<radialGradient id="gBall" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#f2f0e8"/><stop offset=".6" stop-color="#8e8b81"/><stop offset="1" stop-color="#4c4a43"/></radialGradient>
+<linearGradient id="gLev" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0a0a0a"/><stop offset=".3" stop-color="#434343"/><stop offset=".65" stop-color="#121212"/><stop offset="1" stop-color="#050505"/></linearGradient>
+<filter id="tsh" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="1.5" dy="2.5" stdDeviation="1.6" flood-color="#000" flood-opacity=".55"/></filter>
+</defs></svg>
 <div class="w" id="w">
 <div class="bk"></div>
 <img src="assets/plate.webp" alt="" width="1376" height="768">
@@ -88,17 +101,18 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <div class="k" data-k="zoom" role="slider" tabindex="0" aria-label="zoom" aria-valuemin="0" aria-valuemax="100" style="left:31.969%;top:84.661%;width:4.433%;height:7.943%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
 <div class="k" data-k="vol" role="slider" tabindex="0" aria-label="vol" aria-valuemin="0" aria-valuemax="100" style="left:64.259%;top:84.661%;width:4.433%;height:7.943%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
 <div class="k" data-k="track" role="slider" tabindex="0" aria-label="track" aria-valuemin="0" aria-valuemax="100" style="left:76.359%;top:84.674%;width:4.433%;height:7.943%"><img class="r" src="assets/knob.svg" alt="" draggable="false"><img src="assets/knob-gloss.svg" alt="" draggable="false"></div>
-<button class="t" id="t-wave" aria-label="wave" aria-pressed="false" style="left:42.558%;top:84.674%;width:5.087%;height:11.621%"><img class="u" src="assets/toggle-on.png" alt="" draggable="false"><img class="o" src="assets/toggle-off.png" alt="" draggable="false"></button>
+<button class="t" id="t-wave" aria-label="wave" aria-pressed="false" style="left:42.558%;top:84.674%;width:5.087%;height:11.621%"></button>
 <i class="led r" id="l-wave" style="left:44.528%;top:83.281%;width:1.090%;height:1.953%"></i>
-<button class="t" id="t-music" aria-label="music" aria-pressed="false" style="left:52.297%;top:84.661%;width:5.087%;height:11.621%"><img class="u" src="assets/toggle-on.png" alt="" draggable="false"><img class="o" src="assets/toggle-off.png" alt="" draggable="false"></button>
+<button class="t" id="t-music" aria-label="music" aria-pressed="false" style="left:52.297%;top:84.661%;width:5.087%;height:11.621%"></button>
 <i class="led r" id="l-music" style="left:54.281%;top:83.281%;width:1.090%;height:1.953%"></i>
-<button class="p" id="power" aria-label="power" aria-pressed="false" style="left:89.426%;top:85.417%;width:4.070%;height:10.938%"><img src="assets/rocker.png" alt="" draggable="false"></button>
+<button class="p" id="power" aria-label="power" aria-pressed="false" style="left:89.426%;top:85.417%;width:4.070%;height:10.938%"><span class="pf"><b>I</b><b>O</b></span></button>
 <i class="led g" id="l-power" style="left:90.952%;top:82.357%;width:1.090%;height:1.953%"></i>
 <div class="jack" style="left:2.536%;top:81.510%;width:10.683%;height:18.490%"><img src="assets/jack.png" alt="" draggable="false"></div>
-<div class="cr" style="left:85.029%;top:67.839%;width:12.791%;height:5.208%">© 2026 NUYH Creative</div>
+<div class="cr" style="left:85.029%;top:67.839%;width:12.791%;height:5.208%">NUYH CREATIVE</div>
 
-<div class="scr" id="scr" style="left:27.616%;top:10.677%;width:44.767%;height:54.427%" aria-live="polite">
-<div class="sel">SELECT<div class="sk" id="sk"></div></div>
+<i class="sc" style="left:20.834%;top:14.021%;--r:20deg"></i><i class="sc" style="left:77.662%;top:14.021%;--r:-35deg"></i><i class="sc" style="left:20.834%;top:64.802%;--r:70deg"></i><i class="sc" style="left:77.662%;top:64.802%;--r:10deg"></i>
+<div class="scr" id="scr" style="left:22.965%;top:8.594%;width:54.070%;height:60.677%" aria-live="polite">
+<div class="sel"><span id="sel-t">SELECT</span><div class="sk" id="sk"></div></div>
 <div id="info"></div>
 <div class="hz"></div><div class="cl"></div>
 <canvas id="cv"></canvas>
@@ -134,6 +148,15 @@ const PAGES={
 };
 const TRACKS=["assets/track01.mp3","assets/track02.mp3","assets/track03.mp3"]; // put your audio files here
 /* ================================================================ */
+/* toggle art (vector) + screen grid */
+const TG='<svg viewBox="0 0 100 128" aria-hidden="true"><polygon points="50,10 86.4,31 86.4,73 50,94 13.6,73 13.6,31" fill="url(#gNut)" stroke="#34332e"/><polygon points="50,14 82.9,33 82.9,71 50,90 17.1,71 17.1,33" fill="none" stroke="rgba(255,255,255,.35)"/><circle cx="50" cy="52" r="31" fill="url(#gRing)" stroke="#3a3934"/><circle cx="50" cy="52" r="27" fill="none" stroke="rgba(255,255,255,.25)"/><circle cx="50" cy="52" r="22" fill="url(#gWell)"/><circle cx="50" cy="52" r="11" fill="url(#gBall)"/><g filter="url(#tsh)"><g class="lv"><path d="M43.8 52L45.6 20Q45.8 12 50 12Q54.2 12 54.4 20L56.2 52Z" fill="url(#gLev)"/><ellipse cx="47.9" cy="21" rx="1.7" ry="5" fill="rgba(255,255,255,.28)"/></g></g></svg>';
+document.querySelectorAll(".t").forEach(b=>b.innerHTML=TG);
+(()=>{ const W=744,H=466,C=12,R=8,cw=W/C,rh=H/R; let d="",t="",o="";
+  for(let i=1;i<C;i++) d+=`M${i*cw} 0V${H}`; for(let j=1;j<R;j++) d+=`M0 ${j*rh}H${W}`;
+  for(let x=0;x<=W;x+=cw/5) t+=`M${x} ${H/2-5}V${H/2+5}`; for(let y=0;y<=H;y+=rh/5) t+=`M${W/2-6} ${y}H${W/2+6}`;
+  for(const j of [1,6]) for(let i=0;i<C;i++) for(let k=0;k<4;k++) o+=`M${i*cw+cw*.2+k*cw*.2} ${(j+.5)*rh}h1.4`;
+  document.getElementById("scr").insertAdjacentHTML("afterbegin",`<svg class="gr" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><g stroke="#04100a" fill="none"><path d="${d}" stroke-width="1.6"/><path d="${t}" stroke-width="1.4"/><path d="${o}" stroke-width="1.6" stroke-linecap="round"/></g></svg>`);
+})();
 const $=s=>document.querySelector(s), clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
 const S={on:0,wave:1,music:0,page:null,sub:{about:0,works:0,store:0},tr:0,bad:0}, V={int:.5,zoom:.5,vol:.5};
 const SEC=["about","works","store","contact"], POS={aboutp:"about",worksp:"works",storep:"store"};
@@ -143,7 +166,7 @@ let AC,an,buf;
 
 /* ---- screen text ---- */
 function show(){
-  info.replaceChildren();
+  info.replaceChildren(); $("#sel-t").textContent=S.page?"SELECT POSITION":"SELECT";
   if(!S.on) return;
   const rows=[];
   if(!S.page){ rows.push(["ti","NUYH"],["su","MUSIC / SOUND / VISUAL / GAME"]); }
