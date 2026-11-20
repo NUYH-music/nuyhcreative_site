@@ -71,11 +71,9 @@ a{color:inherit;text-underline-offset:.2em}
 .cl{left:50%;top:75%;height:22%;border-left:1px dashed rgba(110,255,60,.35)}
 #cv{position:absolute;left:0;top:76%;width:100%;height:18%}
 #trk{left:0;right:0;bottom:2.5%;text-align:center;font-size:1.2cqw;letter-spacing:.15em}
-/* plain content (mobile portrait / no-JS) + footer */
-.plain{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .hint{display:none;font-size:.85rem;opacity:.7;margin:.6rem 1rem 0;text-align:center}
 footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
-@media (max-aspect-ratio:1/1){.plain{position:static;width:auto;height:auto;clip:auto;white-space:normal;margin:1rem 1.25rem;max-width:34rem}.plain h1{font-size:1.6rem;margin:.2rem 0}.hint{display:block}}
+@media (max-aspect-ratio:1/1){.hint{display:block}} /* portrait: panel + rotate hint only */
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -121,13 +119,6 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 </div>
 </div>
 <p class="hint">Rotate your phone for the full panel.</p>
-<section class="plain">
-<h1>NUYH Creative</h1>
-<p>An independent studio making games and music. / 게임과 음악을 만드는 독립 스튜디오입니다.</p>
-<p><strong>GOTBOY</strong> — a retro pixel-art runner and boss-fight game inspired by Korean folklore. <a href="https://gotboy.nuyhcreative.com">gotboy.nuyhcreative.com</a></p>
-<p>MUSIC - <a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a><br>GAME - <a href="mailto:support-gotboy@nuyhcreative.com">support-gotboy@nuyhcreative.com</a></p>
-</section>
-
 <script>
 (()=>{
 "use strict";
