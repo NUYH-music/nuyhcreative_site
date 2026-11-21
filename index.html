@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NUYH Creative</title>
-<meta name="description" content="NUYH Creative is an independent studio making games and music. Home of GOTBOY.">
+<title>NUYH CREATIVE</title>
+<meta name="description" content="NUYH CREATIVE: an independent studio for multimedia art. Home of GOTBOY.">
 <meta name="color-scheme" content="dark">
 <link rel="preload" as="image" href="assets/plate.webp">
 <style>
@@ -73,7 +73,9 @@ a{color:inherit;text-underline-offset:.2em}
 #trk{left:0;right:0;bottom:2.5%;text-align:center;font-size:1.2cqw;letter-spacing:.15em}
 .hint{display:none;font-size:.85rem;opacity:.7;margin:.6rem 1rem 0;text-align:center}
 footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
-@media (max-aspect-ratio:1/1){.hint{display:block}} /* portrait: panel + rotate hint only */
+.plain{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.plain h1{font-size:1.6rem;margin:.2rem 0 .8rem}.plain h2{font-size:.95rem;letter-spacing:.15em;margin:1.4rem 0 .3rem}.plain p{margin:.3rem 0;line-height:1.6}
+@media (max-aspect-ratio:1/1){.plain{position:static;width:auto;height:auto;clip:auto;white-space:normal;margin:1rem 1.25rem 2rem;max-width:34rem}.hint{display:block}} /* portrait: text shown below the panel. To hide it later, delete .plain{...} inside this media query */
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -118,21 +120,32 @@ footer{font-size:.8rem;opacity:.65;padding:.5rem 1rem;text-align:center}
 <div id="trk">▶ TRACK 01</div>
 </div>
 </div>
-<p class="hint">Rotate your phone for the full panel.</p>
+<p class="hint">Rotate your phone for the full panel.<br>전체 화면으로 보려면 폰을 가로로 돌려주세요.</p>
+<section class="plain">
+<h1>NUYH CREATIVE</h1>
+<p>An independent studio for multimedia art.<br>멀티미디어 아트 독립 스튜디오입니다.</p>
+<h2>MUSIC</h2>
+<p><a href="https://open.spotify.com/artist/4tMSkbA11vMB3csTwsiCNJ" target="_blank" rel="noopener noreferrer">Spotify</a></p>
+<h2>GAME</h2>
+<p>GOTBOY: <a href="https://gotboy.nuyhcreative.com">gotboy.nuyhcreative.com</a></p><!-- later: replace with Google Play / App Store links -->
+<h2>CONTACT</h2>
+<p>MUSIC<br><a href="mailto:contact@nuyhcreative.com">contact@nuyhcreative.com</a></p>
+<p>GOTBOY<br><a href="mailto:support-gotboy@nuyhcreative.com">support-gotboy@nuyhcreative.com</a></p>
+</section>
 <script>
 (()=>{
 "use strict";
 /* ===== EDIT HERE: screen contents. [text, url] = link, [[t,u],[t,u]] = several links on one line ===== */
 const PAGES={
- about:[{h:"ABOUT",l:["NUYH Creative is an independent studio","making multimedia art across","music, sound, visual and games.","음악, 사운드, 비주얼, 게임을 아우르는","멀티미디어 아트 스튜디오입니다."]},
+ about:[{h:"ABOUT",l:["NUYH CREATIVE is an independent studio","making multimedia art across","music, sound, visual and games.","음악, 사운드, 비주얼, 게임을 아우르는","멀티미디어 아트 스튜디오입니다."]},
         {h:"ABOUT",s:"MUSIC & SOUND",l:["Composition and sound design.","작곡과 사운드 디자인."]},
         {h:"ABOUT",s:"VISUAL",l:["Multimedia work.","COMING SOON"]},
         {h:"ABOUT",s:"GAME",l:["Independent game development.","Home of GOTBOY.","독립 게임 개발."]}],
- works:[{h:"WORKS",l:["Works by NUYH Creative","in music, visual and games.","음악, 비주얼, 게임 작품을 소개합니다."]},
+ works:[{h:"WORKS",l:["Works by NUYH CREATIVE","in music, visual and games.","음악, 비주얼, 게임 작품을 소개합니다."]},
         {h:"WORKS",s:"MUSIC & SOUND",l:["COMING SOON"]},
         {h:"WORKS",s:"VISUAL",l:["COMING SOON"]},
         {h:"WORKS",s:"GAME",l:["GOTBOY","Retro pixel-art runner & boss fight game",["gotboy.nuyhcreative.com","https://gotboy.nuyhcreative.com"]]}],
- store:[{h:"STORE",l:["Official goods from NUYH Creative:","music goods and game goods.","음원 굿즈와 게임 굿즈를 소개합니다."]},
+ store:[{h:"STORE",l:["Official goods from NUYH CREATIVE:","music goods and game goods.","음원 굿즈와 게임 굿즈를 소개합니다."]},
         {h:"STORE",s:"MUSIC GOODS",l:["COMING SOON"]},
         {h:"STORE",s:"GAME GOODS",l:["GOTBOY goods.","COMING SOON"]}],
  contact:[{h:"CONTACT",l:[{p:"MUSIC - ",a:["contact@nuyhcreative.com","mailto:contact@nuyhcreative.com"]},{p:"GAME - ",a:["support-gotboy@nuyhcreative.com","mailto:support-gotboy@nuyhcreative.com"]}]}]
